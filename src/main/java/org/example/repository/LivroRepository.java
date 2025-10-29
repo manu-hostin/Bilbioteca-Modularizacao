@@ -5,7 +5,10 @@ import org.example.model.Livros;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LivroRepository {
 
@@ -22,6 +25,18 @@ public class LivroRepository {
             stmt.executeUpdate();
 
             System.out.println("\n✅ Livro Adicionado com Sucesso!");
+        }
+    }
+    public void atualizarDisponibilidade (boolean disp, int id) throws SQLException{
+        String query = "UPDATE livros SET disponivel = ? WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setBoolean(1, disp);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+
         }
     }
 

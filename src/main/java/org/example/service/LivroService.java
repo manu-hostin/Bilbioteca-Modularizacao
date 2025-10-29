@@ -16,10 +16,4 @@ public class LivroService {
     public static void consultarLivrosCadastrados () throws SQLException{
 
     }
-    public static void registrarEmprestimo () throws SQLException{
-
-    }
-    public static void registrarDevolucao () throws SQLException{
-
-    }
 }

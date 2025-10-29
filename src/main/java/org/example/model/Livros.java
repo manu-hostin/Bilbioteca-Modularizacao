@@ -23,6 +23,11 @@ public class Livros {
         this.disponivel = disponivel;
     }
 
+    public Livros(int id, String titulo) {
+        this.id = id;
+        this.titulo = titulo;
+    }
+
     public int getId() {
         return id;
     }
@@ -62,4 +67,5 @@ public class Livros {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
+
 }
