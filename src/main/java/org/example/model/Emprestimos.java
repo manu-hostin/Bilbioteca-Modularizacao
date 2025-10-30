@@ -1,6 +1,6 @@
 package org.example.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Emprestimos {
 
@@ -10,26 +10,31 @@ public class Emprestimos {
 
     private String usuario;
 
-    private LocalDate data_emprestimo;
+    private Date data_emprestimo;
 
-    private LocalDate data_devolucao;
+    private Date data_devolucao;
 
-    public Emprestimos(int livro_id, int id, String usuario, LocalDate data_emprestimo, LocalDate data_devolucao) {
+    public Emprestimos(int livro_id, int id, String usuario, Date data_emprestimo, Date data_devolucao) {
         this.livro_id = livro_id;
         this.id = id;
         this.usuario = usuario;
         this.data_emprestimo = data_emprestimo;
         this.data_devolucao = data_devolucao;
     }
-    public Emprestimos(int livro_id, String usuario, LocalDate data_emprestimo, LocalDate data_devolucao) {
+    public Emprestimos(int livro_id, String usuario, Date data_devolucao) {
         this.livro_id = livro_id;
         this.usuario = usuario;
-        this.data_emprestimo = data_emprestimo;
         this.data_devolucao = data_devolucao;
     }
 
-    public Emprestimos(int id, LocalDate data_devolucao) {
+    public Emprestimos(int id, Date data_devolucao) {
         this.id = id;
+        this.data_devolucao = data_devolucao;
+    }
+    public Emprestimos(int livro_id, String usuario, Date data_emprestimo, Date data_devolucao) {
+        this.livro_id = livro_id;
+        this.usuario = usuario;
+        this.data_emprestimo = data_emprestimo;
         this.data_devolucao = data_devolucao;
     }
 
@@ -49,11 +54,11 @@ public class Emprestimos {
         this.livro_id = livro_id;
     }
 
-    public LocalDate getData_emprestimo() {
+    public Date getData_emprestimo() {
         return data_emprestimo;
     }
 
-    public void setData_emprestimo(LocalDate data_emprestimo) {
+    public void setData_emprestimo(Date data_emprestimo) {
         this.data_emprestimo = data_emprestimo;
     }
 
@@ -65,11 +70,11 @@ public class Emprestimos {
         this.usuario = usuario;
     }
 
-    public LocalDate getData_devolucao() {
+    public Date getData_devolucao() {
         return data_devolucao;
     }
 
-    public void setData_devolucao(LocalDate data_devolucao) {
+    public void setData_devolucao(Date data_devolucao) {
         this.data_devolucao = data_devolucao;
     }
 }

@@ -24,7 +24,7 @@ public class LivroRepository {
             stmt.setBoolean(4, livro.getDisponivel());
             stmt.executeUpdate();
 
-            System.out.println("\n✅ Livro Adicionado com Sucesso!");
+            System.out.println("\nLivro Adicionado com Sucesso!");
         }
     }
     public void atualizarDisponibilidade (boolean disp, int id) throws SQLException{
@@ -38,6 +38,27 @@ public class LivroRepository {
             stmt.executeUpdate();
 
         }
+    }
+    public List<Livros> consultarLivros () throws SQLException{
+        String query = "SELECT titulo, autor, ano, disponivel FROM livros";
+
+        List<Livros> lista = new ArrayList<>();
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String titulo = rs.getString("titulo");
+                String autor = rs.getString("autor");
+                int ano = rs.getInt("ano");
+                boolean disp = rs.getBoolean("disponivel");
+
+                var livro = new Livros(titulo, autor, ano, disp);
+                lista.add(livro);
+            }
+        }
+        return lista;
     }
 
 }

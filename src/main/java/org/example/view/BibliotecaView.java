@@ -54,7 +54,7 @@ public class BibliotecaView {
                     break;
                 }
                 case 4 -> {
-
+                    consultar();
                     break;
                 }
                 case 0 ->{
@@ -114,7 +114,7 @@ public class BibliotecaView {
 
         int opcao = 0;
         if (idUser == -1) {
-            System.out.println("Usuário não existe!");
+            System.out.println("\nUsuário não existe!");
             System.out.println("1. Quero cadastrar um novo usuário;");
             System.out.println("2. Voltar ao menu principal.");
             System.out.print("> ");
@@ -125,24 +125,22 @@ public class BibliotecaView {
                 cadastrarUser();
                 return;
             } else if (opcao == 2) {
-                mostrarMenu();
+                capturarOpcao();
             } else {
-                System.out.println("Opção não reconhecida.");
+                System.out.println("\nOpção não reconhecida.");
                 return;
             }
-        } else {
+        }
+            System.out.println("\nPronto! Agora a data do empréstimo será marcada como hoje e a de devolução será nula até que aja uma devolução.");
 
-            System.out.println("Pronto! Agora a data do empréstimo será marcada como hoje e a de devolução será nula até que aja uma devolução.");
 
-            LocalDate data = LocalDate.now();
-
-            var emprestimo = new Emprestimos(idLivro, usuarioNome, data, null);
+            var emprestimo = new Emprestimos(idLivro, usuarioNome, null);
             try {
                 EmprestimoService.cadastrarEmprestimo(emprestimo);
             } catch (SQLException e){
                 e.printStackTrace();
             }
-        }
+
     }
     public static void devolverLivro(){
         System.out.println("\n----- DEVOLUÇÃO -----");
@@ -151,9 +149,10 @@ public class BibliotecaView {
         SC.nextLine();
 
         System.out.print("Digite a data de devolução: ");
-        LocalDate dataDev = LocalDate.parse(SC.nextLine());
+        Date dataDev = new Date(SC.nextLine());
 
         var devolucao = new Emprestimos(idEmprestimo, dataDev);
+
         try {
             EmprestimoService.realizarDevolucao(devolucao);
         } catch (SQLException e) {
@@ -175,4 +174,45 @@ public class BibliotecaView {
             e.printStackTrace();
         }
     }
+    public static void consultar(){
+        System.out.println("----- CONSULTAS -----");
+        System.out.println("1. Quero consultar todos os livros;");
+        System.out.println("2. Quero consultar todos os empréstimos;");
+        System.out.println("3. Quero consultar todos os usuários.");
+        System.out.print("> ");
+        int opcao = SC.nextInt();
+
+        switch (opcao){
+            case 1: {
+                try {
+                    LivroService.consultarLivrosCadastrados();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 2: {
+                try {
+                    EmprestimoService.consultarEmprestimos();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 3: {
+                try {
+                    UsuarioService.consultarUser();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            default:{
+                System.out.println("Digite uma opção válida.");
+                return;
+            }
+        }
+
+    }
+
 }

@@ -8,11 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioRepository {
 
     public int pegarIDUser (String nome) throws SQLException{
-        String query = "SELECT id FROM Usuarios WHERE nome = ?";
+        String query = "SELECT id FROM usuarios WHERE nome = ?";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
@@ -37,6 +39,25 @@ public class UsuarioRepository {
             stmt.executeUpdate();
 
         }
+    }
+    public List<Usuarios> consultarUsuarios () throws SQLException{
+        String query = "SELECT nome, email FROM usuarios";
+
+        List<Usuarios> lista = new ArrayList<>();
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+
+                var user = new Usuarios(nome, email);
+                lista.add(user);
+            }
+        }
+        return lista;
     }
 
 }
